@@ -13,7 +13,7 @@ source:
   # for the git sha&tag to determine its version
   - folder: {{ pkg_src }}
     url: https://{{ goname }}/archive/v{{version}}.tar.gz
-    sha256: b5ac2da2d8e9bbeb63178b7cd2562cef465503a51129fec301bad623502a2895 
+    sha256: ae0cdb5410be1f62d62123330cd78bdbb213ca1618f04fff289bd2e343b4ea6b 
 
 build:
   number: 0
