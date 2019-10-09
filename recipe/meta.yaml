@@ -9,8 +9,6 @@ package:
   version: {{ version }}
 
 source:
-  # We must use git here beause the program looks
-  # for the git sha&tag to determine its version
   folder: {{ pkg_src }}
   url: https://{{ goname }}/archive/v{{version}}.tar.gz
   sha256: 3c016ff02cc26a5e722ba114d09ab6c3fc271682c3427abdb6f7608fd62d3e33 
