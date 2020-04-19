@@ -2,36 +2,30 @@
 {% set version = "0.23.4" %}
 
 {% set name = goname.split('/')[-1] %}
-{% set pkg_src = ('src/' + goname).replace("/", os.sep) %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  folder: {{ pkg_src }}
   url: https://{{ goname }}/archive/v{{ version }}.tar.gz
   sha256: 3d46286b2b4112707baf50b1cd8490e4337c4b212c678324810dc200ee2b7b6b
 
 build:
   number: 0
   script:
-    - set -x
-    - pushd {{ pkg_src }}
-    - dep ensure -vendor-only
     - go install -v -ldflags "-X main.version={{ version }}" .
 
 requirements:
   build:
     - {{ compiler('go') }}
-    - go-dep
 
 test:
   requires:
     - m2-bash  # [win]
   commands:
-    - bash -c "{{ name|lower }} -v"
     - bash -c "{{ name|lower }} --help"
+    - bash -c "{{ name|lower }} --version"
 
 about:
   home: https://www.gruntwork.io/
