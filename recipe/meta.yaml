@@ -14,7 +14,7 @@ source:
 build:
   number: 0
   script:
-    - go install -v -ldflags "-X main.version={{ version }}" .
+    - go install -v -ldflags "-X main.VERSION={{ version }}" .
 
 requirements:
   build:
