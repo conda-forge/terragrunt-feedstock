@@ -24,7 +24,7 @@ test:
   requires:
     - m2-bash  # [win]
   commands:
-    - bash -c "{{ name|lower }} -v"
+    - bash -c "{{ name|lower }} --version"
     - bash -c "{{ name|lower }} --help"
 
 about:
