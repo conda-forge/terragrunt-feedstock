@@ -2,29 +2,23 @@
 {% set version = "0.23.7" %}
 
 {% set name = goname.split('/')[-1] %}
-{% set pkg_src = ('src/' + goname).replace("/", os.sep) %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  folder: {{ pkg_src }}
   url: https://{{ goname }}/archive/v{{ version }}.tar.gz
   sha256: bf5dfcde85419ca4caa8ec7aab0f65feb472fa24ae532949deaba8a01364daa7
 
 build:
   number: 0
   script:
-    - set -x
-    - pushd {{ pkg_src }}
-    - dep ensure -vendor-only
     - go install -v -ldflags "-X main.version={{ version }}" .
 
 requirements:
   build:
     - {{ compiler('go') }}
-    - go-dep
 
 test:
   requires:
