@@ -19,6 +19,8 @@ build:
 requirements:
   build:
     - {{ compiler('go') }}
+  run:
+    - terraform 0.12
 
 test:
   commands:
