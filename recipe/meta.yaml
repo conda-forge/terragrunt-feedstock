@@ -21,11 +21,9 @@ requirements:
     - {{ compiler('go') }}
 
 test:
-  requires:
-    - m2-bash  # [win]
   commands:
-    - bash -c "{{ name|lower }} --help"
-    - bash -c "{{ name|lower }} --version"
+    - {{ name|lower }} --version
+    - {{ name|lower }} --help
 
 about:
   home: https://www.gruntwork.io/
