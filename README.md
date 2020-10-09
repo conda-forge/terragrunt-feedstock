@@ -5,11 +5,11 @@ Home: https://www.gruntwork.io/
 
 Package license: MIT
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/terragrunt-feedstock/blob/master/LICENSE.txt)
 
 Summary: Terragrunt is a thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules.
 
-
+Development: https://github.com/gruntwork-io/terragrunt.git
 
 Current build status
 ====================
