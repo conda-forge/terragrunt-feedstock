@@ -12,7 +12,7 @@ source:
   sha256: 2e6e113aa02aee4a8de635900307a87a37d052d2f12427df71b101ef403ce7b1
 
 build:
-  number: 0
+  number: 1
   script:
     - go install -v -ldflags "-X main.VERSION={{ version }}" .
 
@@ -20,7 +20,7 @@ requirements:
   build:
     - {{ compiler('go') }}
   run:
-    - terraform 0.12
+    - terraform 0.13
 
 test:
   commands:
