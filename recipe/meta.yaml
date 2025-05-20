@@ -1,5 +1,5 @@
 {% set goname = "github.com/gruntwork-io/terragrunt" %}
-{% set version = "0.78.4" %}
+{% set version = "0.79.0" %}
 
 {% set name = goname.split('/')[-1] %}
 
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://{{ goname }}/archive/v{{ version }}.tar.gz
-  sha256: e86148898fe22326bc55a96b0d9c546e7278139afa6bda99cfad4a316bb52866
+  sha256: 56db84c4627d134a12d53d69401414a6179985e56c0ee31db5cdc239b9437687
 
 build:
   number: 0
