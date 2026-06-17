@@ -13,8 +13,6 @@ source:
 
 build:
   number: 0
-  script:
-    - go install -v -ldflags "-X main.VERSION={{ version }}" .
 
 requirements:
   build:
@@ -26,6 +24,11 @@ test:
   commands:
     - {{ name|lower }} --version
     - {{ name|lower }} --help
+    - test -f $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh      # [unix]
+    - test -f $PREFIX/etc/conda/deactivate.d/{{ name|lower }}_deactivate.sh  # [unix]
+    - bash -c 'source $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh && complete -p {{ name|lower }} | grep -q {{ name|lower }}'      # [unix]
+    - if not exist %PREFIX%\etc\conda\activate.d\{{ name|lower }}_activate.sh exit 1      # [win]
+    - if not exist %PREFIX%\etc\conda\deactivate.d\{{ name|lower }}_deactivate.sh exit 1  # [win]
 
 about:
   home: https://www.gruntwork.io/
