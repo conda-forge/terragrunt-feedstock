@@ -12,9 +12,7 @@ source:
   sha256: a5cdd3703944646d5d3cf2ee0b168e1b5b4873fa40fc0e558f59e9286455746d
 
 build:
-  number: 0
-  script:
-    - go install -v -ldflags "-X main.VERSION={{ version }}" .
+  number: 1
 
 requirements:
   build:
@@ -23,9 +21,24 @@ requirements:
     - terraform
 
 test:
+  requires:
+    - fish  # [unix]
+    - zsh   # [unix]
   commands:
     - {{ name|lower }} --version
+    - {{ name|lower }} --version | grep -q "v{{ version }}"  # [unix]
     - {{ name|lower }} --help
+    - test -f $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh        # [unix]
+    - test -f $PREFIX/etc/conda/deactivate.d/{{ name|lower }}_deactivate.sh    # [unix]
+    - test -f $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.fish      # [unix]
+    - test -f $PREFIX/etc/conda/deactivate.d/{{ name|lower }}_deactivate.fish  # [unix]
+    - bash -c 'source $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh && complete -p {{ name|lower }} | grep -q {{ name|lower }}'      # [unix]
+    - zsh  -c 'source $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh && complete -p {{ name|lower }} | grep -q {{ name|lower }}'      # [unix]
+    - fish -c 'source $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.fish; complete -c {{ name|lower }} | grep -q {{ name|lower }}'      # [unix]
+    - if not exist "%PREFIX%\etc\conda\activate.d\{{ name|lower }}_activate.sh" exit 1        # [win]
+    - if not exist "%PREFIX%\etc\conda\deactivate.d\{{ name|lower }}_deactivate.sh" exit 1    # [win]
+    - if not exist "%PREFIX%\etc\conda\activate.d\{{ name|lower }}_activate.fish" exit 1      # [win]
+    - if not exist "%PREFIX%\etc\conda\deactivate.d\{{ name|lower }}_deactivate.fish" exit 1  # [win]
 
 about:
   home: https://www.gruntwork.io/
