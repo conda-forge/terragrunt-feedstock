@@ -26,6 +26,7 @@ test:
     - zsh   # [unix]
   commands:
     - {{ name|lower }} --version
+    - {{ name|lower }} --version | grep -q "v{{ version }}"  # [unix]
     - {{ name|lower }} --help
     - test -f $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh        # [unix]
     - test -f $PREFIX/etc/conda/deactivate.d/{{ name|lower }}_deactivate.sh    # [unix]

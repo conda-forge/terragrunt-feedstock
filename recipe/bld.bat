@@ -1,4 +1,4 @@
-go install -v -ldflags "-X main.VERSION=%PKG_VERSION%" .
+go install -v -ldflags "-X github.com/gruntwork-io/terragrunt/internal/version.Version=v%PKG_VERSION%" .
 if errorlevel 1 exit 1
 
 for %%C in (activate deactivate) do (

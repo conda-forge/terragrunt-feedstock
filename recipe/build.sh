@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-go install -v -ldflags "-X main.VERSION=${PKG_VERSION}" .
+go install -v -ldflags "-X github.com/gruntwork-io/terragrunt/internal/version.Version=v${PKG_VERSION}" .
 
 for change in activate deactivate; do
     mkdir -p "${PREFIX}/etc/conda/${change}.d"
