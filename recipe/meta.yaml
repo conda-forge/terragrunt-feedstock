@@ -21,14 +21,23 @@ requirements:
     - terraform
 
 test:
+  requires:
+    - fish  # [unix]
+    - zsh   # [unix]
   commands:
     - {{ name|lower }} --version
     - {{ name|lower }} --help
-    - test -f $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh      # [unix]
-    - test -f $PREFIX/etc/conda/deactivate.d/{{ name|lower }}_deactivate.sh  # [unix]
+    - test -f $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh        # [unix]
+    - test -f $PREFIX/etc/conda/deactivate.d/{{ name|lower }}_deactivate.sh    # [unix]
+    - test -f $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.fish      # [unix]
+    - test -f $PREFIX/etc/conda/deactivate.d/{{ name|lower }}_deactivate.fish  # [unix]
     - bash -c 'source $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh && complete -p {{ name|lower }} | grep -q {{ name|lower }}'      # [unix]
-    - if not exist %PREFIX%\etc\conda\activate.d\{{ name|lower }}_activate.sh exit 1      # [win]
-    - if not exist %PREFIX%\etc\conda\deactivate.d\{{ name|lower }}_deactivate.sh exit 1  # [win]
+    - zsh  -c 'source $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.sh && complete -p {{ name|lower }} | grep -q {{ name|lower }}'      # [unix]
+    - fish -c 'source $PREFIX/etc/conda/activate.d/{{ name|lower }}_activate.fish; complete -c {{ name|lower }} | grep -q {{ name|lower }}'      # [unix]
+    - if not exist "%PREFIX%\etc\conda\activate.d\{{ name|lower }}_activate.sh" exit 1        # [win]
+    - if not exist "%PREFIX%\etc\conda\deactivate.d\{{ name|lower }}_deactivate.sh" exit 1    # [win]
+    - if not exist "%PREFIX%\etc\conda\activate.d\{{ name|lower }}_activate.fish" exit 1      # [win]
+    - if not exist "%PREFIX%\etc\conda\deactivate.d\{{ name|lower }}_deactivate.fish" exit 1  # [win]
 
 about:
   home: https://www.gruntwork.io/
