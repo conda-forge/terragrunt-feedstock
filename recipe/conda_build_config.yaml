@@ -1,2 +1,5 @@
 go_compiler:
   - go-nocgo
+# go.mod sets `go 1.27` and the build runs with GOTOOLCHAIN=local
+go_compiler_version:
+  - ">=1.27"
