@@ -8,6 +8,8 @@ channel_targets:
 - conda-forge main
 go_compiler:
 - go-nocgo
+go_compiler_version:
+- '>=1.27'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 target_platform:
