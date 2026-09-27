@@ -1,0 +1,84 @@
+schema_version: 1
+
+context:
+  version: "1.1.6"
+  build_number: 1
+
+package:
+  name: terragrunt
+  version: ${{ version }}
+
+source:
+  url: https://github.com/gruntwork-io/terragrunt/archive/v${{ version }}.tar.gz
+  sha256: 13d96feff7d0cbd47d3bb875ff4ca4f27f871dee98bf7ac32acb8d766cd33dc3
+
+build:
+  number: ${{ build_number }}
+  script:
+    file: build  # build.sh on Unix, build.bat on Windows
+
+requirements:
+  build:
+    - ${{ compiler('go') }}
+    - go-licenses
+
+tests:
+  - package_contents:
+      files:
+        - if: unix
+          then:
+            - share/bash-completion/completions/terragrunt
+            - share/zsh/site-functions/_terragrunt
+            - share/fish/vendor_completions.d/terragrunt.fish
+            - etc/conda/activate.d/terragrunt.sh
+            - etc/conda/deactivate.d/terragrunt.sh
+            - etc/conda/activate.d/terragrunt.fish
+            - etc/conda/deactivate.d/terragrunt.fish
+  - requirements:
+      run:
+        - if: unix
+          then:
+            - fish
+            - zsh
+    script:
+      - terragrunt --version
+      - terragrunt --help
+      - if: unix
+        then:
+          # Check that completing "terragrunt ru" suggests "run".
+          - env COMP_LINE="terragrunt ru" terragrunt | grep -qx run
+          - bash -e tests/completions.bash
+          - zsh -f -e tests/completions.zsh
+          - fish --no-config tests/completions.fish
+    files:
+      recipe:
+        - tests/
+  - requirements:
+      run:
+        - opentofu
+    script:
+      - terragrunt run --tf-path tofu -- version
+  - requirements:
+      run:
+        - terraform
+    script:
+      - terragrunt run --tf-path terraform -- version
+
+about:
+  homepage: https://www.gruntwork.io/
+  license: MIT
+  license_file:
+    - LICENSE.txt
+    - library_licenses
+  summary: Terragrunt is a flexible orchestration tool for OpenTofu and Terraform.
+  description: |
+    Terragrunt is a flexible orchestration tool that allows Infrastructure as Code written in OpenTofu/Terraform to scale.
+    Install either opentofu or terraform separately to run infrastructure commands.
+  repository: https://github.com/gruntwork-io/terragrunt.git
+
+extra:
+  recipe-maintainers:
+    - sodre
+    - mariusvniekerk
+    - hajapy
+    - Hoeze
