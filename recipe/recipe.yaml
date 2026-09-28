@@ -42,7 +42,10 @@ tests:
             - zsh
     script:
       - if: win
-        then: terragrunt --version | findstr /L /X /C:"terragrunt version v${{ version }}"
+        then: |
+          set "TERRAGRUNT_VERSION="
+          for /f "delims=" %%V in ('terragrunt --version') do set "TERRAGRUNT_VERSION=%%V"
+          if not "%TERRAGRUNT_VERSION%"=="terragrunt version v${{ version }}" exit /b 1
         else: terragrunt --version | grep -Fx "terragrunt version v${{ version }}"
       - terragrunt --help
       - if: unix
