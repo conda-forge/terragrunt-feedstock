@@ -41,7 +41,9 @@ tests:
             - fish
             - zsh
     script:
-      - terragrunt --version
+      - if: win
+        then: terragrunt --version | findstr /L /X /C:"terragrunt version v${{ version }}"
+        else: terragrunt --version | grep -Fx "terragrunt version v${{ version }}"
       - terragrunt --help
       - if: unix
         then:
