@@ -7,7 +7,7 @@ if [ -n "${_CONDA_TERRAGRUNT_COMPLETION_PREFIX:-}" ] &&
         if [ "$(complete -p terragrunt 2>/dev/null)" = "${_CONDA_TERRAGRUNT_COMPLETION_RULE:-}" ]; then
             complete -r terragrunt 2>/dev/null || true
         fi
-    elif [ -n "${ZSH_VERSION:-}" ]; then
+    elif [ "${ZSH_VERSION+x}" = x ]; then
         # Retain the function; other command mappings may reference it.
         if [ "${_comps[terragrunt]-}" = _terragrunt ]; then
             compdef -d terragrunt 2>/dev/null || true

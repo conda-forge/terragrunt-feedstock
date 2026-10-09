@@ -1,0 +1,12 @@
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+docker_image:
+- quay.io/condaforge/linux-anvil-riscv64:rocky10
+go_compiler:
+- go-nocgo
+go_compiler_version:
+- '>=1.27'
+target_platform:
+- linux-riscv64
