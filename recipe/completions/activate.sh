@@ -8,7 +8,8 @@ if [ -n "${BASH_VERSION:-}" ]; then
             _CONDA_TERRAGRUNT_COMPLETION_RULE=$(complete -p terragrunt) &&
             _CONDA_TERRAGRUNT_COMPLETION_PREFIX="${CONDA_PREFIX}"
     fi
-elif [ -n "${ZSH_VERSION:-}" ]; then
+elif [ "${ZSH_VERSION+x}" = x ]; then
+    # ZSH_VERSION can be empty after Conda prefix relocation.
     if ! typeset -f compdef >/dev/null 2>&1; then
         # Avoid cache writes and skip insecure completion directories.
         autoload -Uz compinit && compinit -D -i
