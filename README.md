@@ -7,9 +7,12 @@ Home: https://www.gruntwork.io/
 
 Package license: MIT
 
-Summary: Terragrunt is a thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules.
+Summary: Terragrunt is a flexible orchestration tool for OpenTofu and Terraform.
 
 Development: https://github.com/gruntwork-io/terragrunt.git
+
+Terragrunt is a flexible orchestration tool that allows Infrastructure as Code written in OpenTofu/Terraform to scale.
+Install either opentofu or terraform separately to run infrastructure commands.
 
 Current build status
 ====================

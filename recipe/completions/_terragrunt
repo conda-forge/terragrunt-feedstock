@@ -1,0 +1,8 @@
+#compdef terragrunt
+# Enable Terragrunt argument completion in Zsh.
+# Pass command words through COMP_LINE and present the returned candidates.
+
+local -a suggestions
+# (j: :) joins words through CURRENT; (@f) splits suggestions on newlines.
+suggestions=("${(@f)$(COMP_LINE="${(j: :)words[1,CURRENT]}" terragrunt)}")
+compadd -- "${suggestions[@]}"
