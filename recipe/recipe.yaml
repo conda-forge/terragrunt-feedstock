@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   version: "1.1.6"
-  build_number: 1
+  build_number: 2
 
 package:
   name: terragrunt
@@ -24,6 +24,8 @@ requirements:
 
 tests:
   - package_contents:
+      bin:
+        - terragrunt
       files:
         - if: unix
           then:
@@ -36,7 +38,8 @@ tests:
             - etc/conda/deactivate.d/terragrunt.fish
   - requirements:
       run:
-        - if: unix
+        # fish and zsh are not yet available for linux-riscv64.
+        - if: unix and target_platform != "linux-riscv64"
           then:
             - fish
             - zsh
@@ -53,21 +56,26 @@ tests:
           # Check that completing "terragrunt ru" suggests "run".
           - env COMP_LINE="terragrunt ru" terragrunt | grep -qx run
           - bash -e tests/completions.bash
+      - if: unix and target_platform != "linux-riscv64"
+        then:
           - zsh -f -e tests/completions.zsh
           - fish --no-config tests/completions.fish
     files:
       recipe:
         - tests/
-  - requirements:
-      run:
-        - opentofu
-    script:
-      - terragrunt run --tf-path tofu -- version
-  - requirements:
-      run:
-        - terraform
-    script:
-      - terragrunt run --tf-path terraform -- version
+  # Neither backend is packaged for these targets yet.
+  - if: target_platform not in ["win-arm64", "linux-riscv64"]
+    then:
+      - requirements:
+          run:
+            - opentofu
+        script:
+          - terragrunt run --tf-path tofu -- version
+      - requirements:
+          run:
+            - terraform
+        script:
+          - terragrunt run --tf-path terraform -- version
 
 about:
   homepage: https://www.gruntwork.io/
