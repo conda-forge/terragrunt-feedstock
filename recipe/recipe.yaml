@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "1.2.0"
+  version: "1.2.1"
   build_number: 0
 
 package:
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/gruntwork-io/terragrunt/archive/v${{ version }}.tar.gz
-  sha256: dde1831934d7eb2ad309b4be0057d57e10e7fd52ef3f56329346f49077349d4f
+  sha256: cbc90a6555abae0eb9ddc728a7728eee48cb18206316595edf8c8b32fcb0e534
 
 build:
   number: ${{ build_number }}
